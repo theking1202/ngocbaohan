@@ -1,0 +1,96 @@
+@font-face {
+    font-family: 'Chakra Petch';
+    src: url('ChakraPetch-Regular.eot');
+    src: url('ChakraPetch-Regular.eot?#iefix') format('embedded-opentype'),
+        url('ChakraPetch-Regular.woff2') format('woff2'),
+        url('ChakraPetch-Regular.woff') format('woff'),
+        url('ChakraPetch-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Chakra Petch';
+    src: url('ChakraPetch-Bold.eot');
+    src: url('ChakraPetch-Bold.eot?#iefix') format('embedded-opentype'),
+        url('ChakraPetch-Bold.woff2') format('woff2'),
+        url('ChakraPetch-Bold.woff') format('woff'),
+        url('ChakraPetch-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lobster Two';
+    src: url('LobsterTwo.eot');
+    src: url('LobsterTwo.eot?#iefix') format('embedded-opentype'),
+        url('LobsterTwo.woff2') format('woff2'),
+        url('LobsterTwo.woff') format('woff'),
+        url('LobsterTwo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lobster Two';
+    src: url('LobsterTwo-Bold.eot');
+    src: url('LobsterTwo-Bold.eot?#iefix') format('embedded-opentype'),
+        url('LobsterTwo-Bold.woff2') format('woff2'),
+        url('LobsterTwo-Bold.woff') format('woff'),
+        url('LobsterTwo-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Serif Display';
+    src: url('NotoSerifDisplay-Bold.eot');
+    src: url('NotoSerifDisplay-Bold.eot?#iefix') format('embedded-opentype'),
+        url('NotoSerifDisplay-Bold.woff2') format('woff2'),
+        url('NotoSerifDisplay-Bold.woff') format('woff'),
+        url('NotoSerifDisplay-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Serif Display';
+    src: url('NotoSerifDisplay-Regular.eot');
+    src: url('NotoSerifDisplay-Regular.eot?#iefix') format('embedded-opentype'),
+        url('NotoSerifDisplay-Regular.woff2') format('woff2'),
+        url('NotoSerifDisplay-Regular.woff') format('woff'),
+        url('NotoSerifDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('OpenSans-Regular.eot');
+    src: url('OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('OpenSans-Regular.woff2') format('woff2'),
+        url('OpenSans-Regular.woff') format('woff'),
+        url('OpenSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('OpenSans-Bold.eot');
+    src: url('OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('OpenSans-Bold.woff2') format('woff2'),
+        url('OpenSans-Bold.woff') format('woff'),
+        url('OpenSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

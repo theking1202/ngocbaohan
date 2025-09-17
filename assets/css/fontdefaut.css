@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'font1';
+    src: url('../fonts/fontdefaut/OpenSans-Regular.eot');
+    src: url('../fonts/fontdefaut/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/fontdefaut/OpenSans-Regular.woff2') format('woff2'),
+        url('../fonts/fontdefaut/OpenSans-Regular.woff') format('woff'),
+        url('../fonts/fontdefaut/OpenSans-Regular.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'font2';
+    src: url('../fonts/fontdefaut/NotoSerifDisplay-Bold.eot');
+    src: url('../fonts/fontdefaut/NotoSerifDisplay-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/fontdefaut/NotoSerifDisplay-Bold.woff2') format('woff2'),
+        url('../fonts/fontdefaut/NotoSerifDisplay-Bold.woff') format('woff'),
+        url('../fonts/fontdefaut/NotoSerifDisplay-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'font3';
+    src: url('../fonts/fontdefaut/OpenSans-Bold.eot');
+    src: url('../fonts/fontdefaut/OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/fontdefaut/OpenSans-Bold.woff2') format('woff2'),
+        url('../fonts/fontdefaut/OpenSans-Bold.woff') format('woff'),
+        url('../fonts/fontdefaut/OpenSans-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'font4';
+    src: url('../fonts/fontdefaut/NotoSerifDisplay-Regular.eot');
+    src: url('../fonts/fontdefaut/NotoSerifDisplay-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/fontdefaut/NotoSerifDisplay-Regular.woff2') format('woff2'),
+        url('../fonts/fontdefaut/NotoSerifDisplay-Regular.woff') format('woff'),
+        url('../fonts/fontdefaut/NotoSerifDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'font5';
+    src: url('../fonts/fontdefaut/LobsterTwo.eot');
+    src: url('../fonts/fontdefaut/LobsterTwo.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/fontdefaut/LobsterTwo.woff2') format('woff2'),
+        url('../fonts/fontdefaut/LobsterTwo.woff') format('woff'),
+        url('../fonts/fontdefaut/LobsterTwo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'font6';
+    src: url('../fonts/fontdefaut/ChakraPetch-Regular.eot');
+    src: url('../fonts/fontdefaut/ChakraPetch-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/fontdefaut/ChakraPetch-Regular.woff2') format('woff2'),
+        url('../fonts/fontdefaut/ChakraPetch-Regular.woff') format('woff'),
+        url('../fonts/fontdefaut/ChakraPetch-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'font7';
+    src: url('../fonts/fontdefaut/Roboto-Regular.eot');
+    src: url('../fonts/fontdefaut/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/fontdefaut/Roboto-Regular.woff2') format('woff2'),
+        url('../fonts/fontdefaut/Roboto-Regular.woff') format('woff'),
+        url('../fonts/fontdefaut/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
