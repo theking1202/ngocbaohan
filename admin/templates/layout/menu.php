@@ -955,8 +955,14 @@
                             </li>
 
                     <?php }
+                    
                     } ?>
-
+                    <li class="nav-item">
+                    <a class="nav-link <?= ($com=='man_admin'?'active':'') ?>" href="index.php?com=man_admin&act=man" title="Hàng hoá cửa hàng">
+                        <i class="nav-icon text-sm fas fa-store"></i>
+                        <p>Hàng hoá cửa hàng</p>
+                    </a>
+                    </li>
                 <?php } ?>
 
 

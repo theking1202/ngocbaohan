@@ -60,7 +60,7 @@
         <div class="main-content">
             <div class="product-head d-flex">
                 <div class="product-head1">
-                    <div class="index-search" >
+                    <div class="index-search">
                         <i class="index-search-icon fa-solid fa-magnifying-glass"></i>
                         <input type="text" class="index-search-input" placeholder="Tìm kiếm">
                         <i class="index-search-filter fa-solid fa-sliders"></i>
@@ -96,8 +96,7 @@
                     <div class="tab-content active" id="new-products">
                         <div class="carousel-wrapper">
                             <div class="carousel-container">
-                                <button class="carousel-nav carousel-prev"
-                                    onclick="prevSlide('new-products')">
+                                <button class="carousel-nav carousel-prev" onclick="prevSlide('new-products')">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
 
@@ -267,7 +266,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                     <!-- Slide 2 -->
@@ -435,17 +434,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
-                                <button class="carousel-nav carousel-next"
-                                    onclick="nextSlide('new-products')">
+                                <button class="carousel-nav carousel-next" onclick="nextSlide('new-products')">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                             </div>
                             <!-- Additional Navigation Buttons -->
-                            
+
                         </div>
                     </div>
 
@@ -453,8 +451,7 @@
                     <div class="tab-content" id="best-sellers">
                         <div class="carousel-wrapper">
                             <div class="carousel-container">
-                                <button class="carousel-nav carousel-prev"
-                                    onclick="prevSlide('best-sellers')">
+                                <button class="carousel-nav carousel-prev" onclick="prevSlide('best-sellers')">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
 
@@ -513,12 +510,11 @@
                                     </div>
                                 </div>
 
-                                <button class="carousel-nav carousel-next"
-                                    onclick="nextSlide('best-sellers')">
+                                <button class="carousel-nav carousel-next" onclick="nextSlide('best-sellers')">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -526,8 +522,7 @@
                     <div class="tab-content" id="design-products">
                         <div class="carousel-wrapper">
                             <div class="carousel-container">
-                                <button class="carousel-nav carousel-prev"
-                                    onclick="prevSlide('design-products')">
+                                <button class="carousel-nav carousel-prev" onclick="prevSlide('design-products')">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
 
@@ -584,12 +579,11 @@
                                     </div>
                                 </div>
 
-                                <button class="carousel-nav carousel-next"
-                                    onclick="nextSlide('design-products')">
+                                <button class="carousel-nav carousel-next" onclick="nextSlide('design-products')">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -807,365 +801,365 @@ function updateCarousel(tabId) {
                     <div class="carousel-slide-2"
                         style="width: 50%; flex-shrink: 0; padding: 0 10px; box-sizing: border-box;">
                         <div class="product-list2">
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan1-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Vàng 24K</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Vàng Cao Cấp</h3>
-                                                    <div class="product-price">60.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Hoa tai vàng</h3>
-                                                    <div class="product-price">15.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Hoa tai vàng 24K</h3>
-                                                    <div class="product-price">14.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Định Đá</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/sp1.jpg" alt="Product Default"
+                                            class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png" alt="Product Hover"
+                                            class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
+                                    <div class="product-price">10.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/nhan1.jpg" alt="Product Default"
+                                            class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/nhan1-2.jpg" alt="Product Hover"
+                                            class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Nhẫn Vàng 24K</h3>
+                                    <div class="product-price">10.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-1.jpg"
+                                            alt="Product Default" class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-2.jpg" alt="Product Hover"
+                                            class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Nhẫn Vàng Cao Cấp</h3>
+                                    <div class="product-price">60.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-1.jpg"
+                                            alt="Product Default" class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-2.jpg"
+                                            alt="Product Hover" class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Hoa tai vàng</h3>
+                                    <div class="product-price">15.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-1.jpg"
+                                            alt="Product Default" class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-2.jpg"
+                                            alt="Product Hover" class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Hoa tai vàng 24K</h3>
+                                    <div class="product-price">14.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-1.jpg"
+                                            alt="Product Default" class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-2.jpg"
+                                            alt="Product Hover" class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Nhẫn Định Đá</h3>
+                                    <div class="product-price">10.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/sp1.jpg" alt="Product Default"
+                                            class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png" alt="Product Hover"
+                                            class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
+                                    <div class="product-price">10.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Slide 2 -->
                     <div class="carousel-slide-2"
                         style="width: 50%; flex-shrink: 0; padding: 0 10px; box-sizing: border-box;">
                         <div class="product-list2">
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan1-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Vàng 24K</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Vàng Cao Cấp</h3>
-                                                    <div class="product-price">60.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Hoa tai vàng</h3>
-                                                    <div class="product-price">15.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Hoa tai vàng 24K</h3>
-                                                    <div class="product-price">14.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Định Đá</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/sp1.jpg" alt="Product Default"
+                                            class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png" alt="Product Hover"
+                                            class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
+                                    <div class="product-price">10.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/nhan1.jpg" alt="Product Default"
+                                            class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/nhan1-2.jpg" alt="Product Hover"
+                                            class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Nhẫn Vàng 24K</h3>
+                                    <div class="product-price">10.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-1.jpg"
+                                            alt="Product Default" class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-2.jpg" alt="Product Hover"
+                                            class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Nhẫn Vàng Cao Cấp</h3>
+                                    <div class="product-price">60.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-1.jpg"
+                                            alt="Product Default" class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-2.jpg"
+                                            alt="Product Hover" class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Hoa tai vàng</h3>
+                                    <div class="product-price">15.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-1.jpg"
+                                            alt="Product Default" class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-2.jpg"
+                                            alt="Product Hover" class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Hoa tai vàng 24K</h3>
+                                    <div class="product-price">14.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="image-container">
+                                    <div class="product-image default-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-1.jpg"
+                                            alt="Product Default" class="product-image default-image">
+                                    </div>
+                                    <div class="product-image hover-image">
+                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-2.jpg"
+                                            alt="Product Hover" class="product-image hover-image">
+                                    </div>
+                                    <div class="heart-icon">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="eye-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Nhẫn Định Đá</h3>
+                                    <div class="product-price">10.000.000 VNĐ</div>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
+                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
+                                            Hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1228,32 +1222,7 @@ function updateCarousel(tabId) {
         </form>
     </div>
 </div>
-<div class="bottom-nav">
-    <div class="nav-item">
-        <div><i class="fas fa-home"></i></div>
-        <div><span>HOME</span></div>
-    </div>
-    <div class="nav-item">
-        <div><i class="fas fa-comments"></i></div>
-        <div><span>CHAT</span></div>
-    </div>
-    <div class="nav-item">
-        <div><i class="fas fa-bell"></i></div>
-        <div><span>THÔNG BÁO</span></div>
-    </div>
-    <div class="nav-item">
-        <div><i class="fas fa-play"></i></div>
-        <div><span>VIDEO</span></div>
-    </div>
-    <div class="nav-item">
-        <div><i class="fas fa-percentage"></i></div>
-        <div><span>VOUCHER</span></div>
-    </div>
-    <div class="nav-item">
-        <div><i class="fas fa-user"></i></div>
-        <div><span>TÔI</span></div>
-    </div>
-</div>
+
 <script>
 const track = document.querySelector('.carousel-track');
 const slides = document.querySelectorAll('.carousel-slide');

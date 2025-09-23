@@ -37,6 +37,7 @@ $chungnhanListMenu = $d->rawQuery("select name$lang, slugvi, slugen, id from #_n
 
 $sanphamListMenu = $d->rawQuery("select id, name$lang,desc$lang, slugvi, slugen  from #_product_list where type = ? and find_in_set('noibat',status) and find_in_set('hienthi',status)", array('san-pham'));
 
+$banner_gioithieu = $cache->get("select photo from #_photo where type = ? and act = ? limit 0,1", array('banner', 'photo_static'), 'fetch', 7200);
 // 
 
 $cauhoi = $d->rawQuery("select name$lang,content$lang, id from #_news where type = ? and find_in_set('hienthi',status) order by numb,id desc", array('cau-hoi-thuong-gap'));

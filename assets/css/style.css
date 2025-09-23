@@ -185,7 +185,7 @@ a {
 /* Main */
 
 :root {
-  --c1: #006838;
+  --c1: #104428;
 
   --c2: #ec2d3f;
 
@@ -9636,8 +9636,17 @@ h2.text-ani-item {
   transition: color 0.3s;
 }
 
-.nav-item:hover {
+.nav-item.active a {
   color: #068240;
+}
+
+
+.nav-item a:hover {
+  color: #068240;
+}
+
+.nav-item a{
+  color: #104428;
 }
 
 .nav-item i {
@@ -10060,4 +10069,116 @@ h2.text-ani-item {
   .nguhanh-circle {
     display: none;
   }
+}
+
+.introduce-main {
+    width: 100%;
+    text-align: center;
+}
+.wrapper-introduce {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+.section-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.decorative-line {
+    width: 80px;
+    height: 4px;
+    background-color: #f39c12;
+    border-radius: 2px;
+}
+.section-header h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    color: var(--c1);
+    text-shadow: none;
+}
+.intro-content-box {
+    background-color: #fff5c4;
+    border-bottom: 2px solid var(--c1);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+.intro-content-box p {
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: justify;
+    margin: 0;
+}
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+.value-item {
+    text-align: center;
+}
+.value-icon {
+    width: 100px;
+    height: 100px;
+    /* background-color: var(--c1); */
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+}
+.value-item h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--c1);
+    text-shadow: none;
+}
+.value-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 15px;
+    line-height: 1.7;
+}
+.value-item ul li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+/* Bottom Navigation Cart Count Badge */
+.cart-icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ec2d3f;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.cart-count:empty {
+    display: none;
 }

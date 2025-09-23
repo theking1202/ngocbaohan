@@ -51,13 +51,15 @@
 
         <div
 
-            class="<?= ($source == 'index') ? 'wrap-home' : 'wrap-content padding-top-bottom' ?> <?= ($source == 'contact') ? 'isigncontact' : '' ?>">
+            class="<?= ($source == 'index') ? 'wrap-home' : 'padding-top-bottom' ?> <?= ($source == 'contact') ? 'isigncontact' : '' ?>">
 
             <?php include TEMPLATE . $template . "_tpl.php"; ?>
 
         </div>
 
         <?php
+
+        include TEMPLATE . LAYOUT . "bottom-nav.php";
 
         include TEMPLATE . LAYOUT . "footer.php";
 
