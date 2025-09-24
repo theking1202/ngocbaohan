@@ -4451,5 +4451,42 @@ class Functions
             $_SESSION['pro_seen'][count($_SESSION['pro_seen'])] = $id;
     }
 
+    /* Limit Words Function */
+    public function limitWords($text, $limit = 10, $ending = '...') 
+    {
+        // Remove HTML tags and decode HTML entities
+        $text = strip_tags(html_entity_decode($text));
+        
+        // Split text into words
+        $words = explode(' ', $text);
+        
+        // If word count is less than or equal to limit, return original text
+        if (count($words) <= $limit) {
+            return trim($text);
+        }
+        
+        // Get only the required number of words
+        $limitedWords = array_slice($words, 0, $limit);
+        
+        // Join words back and add ending
+        return trim(implode(' ', $limitedWords)) . $ending;
+    }
+    
+    /* Limit Characters Function */
+    public function limitChars($text, $limit = 100, $ending = '...')
+    {
+        // Remove HTML tags and decode HTML entities
+        $text = strip_tags(html_entity_decode($text));
+        
+        // If text length is less than or equal to limit, return original text
+        if (mb_strlen($text, 'UTF-8') <= $limit) {
+            return trim($text);
+        }
+        
+        // Cut text at the limit and add ending
+        return trim(mb_substr($text, 0, $limit, 'UTF-8')) . $ending;
+    }
+    /* End Limit Functions */
+
     /* End Product Seen */
 }

@@ -360,6 +360,76 @@ switch ($com) {
 
         break;
 
+    case 'tuyen-dung':
+
+        $source = "static";
+
+        $template = "static/recruit";
+
+        $seo->set('type', isset($_GET['id']) ? "article" : "object");
+
+        $type = $com;
+
+        $titleMain = "Tuyển dụng";
+
+        break;    
+
+    case 'cac-chi-nhanh':
+
+        $source = "static";
+
+        $template = "static/recruit";
+
+        $seo->set('type', isset($_GET['id']) ? "article" : "object");
+
+        $type = $com;
+
+        $titleMain = "Các chi nhánh";
+
+        break; 
+        
+    case 'quyen-loi-thanh-vien':
+
+        $source = "static";
+
+        $template = "static/recruit";
+
+        $seo->set('type', isset($_GET['id']) ? "article" : "object");
+
+        $type = $com;
+
+        $titleMain = "Quyền lợi thành viên";
+
+        break; 
+        
+    case 'chinh-sach-thu-doi':
+
+        $source = "static";
+
+        $template = "static/recruit";
+
+        $seo->set('type', isset($_GET['id']) ? "article" : "object");
+
+        $type = $com;
+
+        $titleMain = "Chính sách thu đổi";
+
+        break;     
+
+    // case 'chinh-sach-bao-hanh':
+
+    //     $source = "static";
+
+    //     $template = "static/recruit";
+
+    //     $seo->set('type', isset($_GET['id']) ? "article" : "object");
+
+    //     $type = $com;
+
+    //     $titleMain = "Chính sách bảo hành";
+
+    //     break;       
+
     case 'chung-nhan':
 
         $source = "news";
@@ -467,8 +537,6 @@ switch ($com) {
         $source = "user";
 
         break;
-
-
 
     case 'ngon-ngu':
 

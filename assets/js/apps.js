@@ -1403,6 +1403,353 @@ BLUEWEB_FRAMEWORK.Showhide = function () {
         });
     }
 };
+BLUEWEB_FRAMEWORK.Wishlist = function () {
+    // Khởi tạo wishlist từ localStorage cho guest users
+    initGuestWishlist();
+    
+    // Xử lý click thêm/bỏ sản phẩm yêu thích
+    $(document).on('click', '.wishlist-add', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var $this = $(this);
+        var productId = $this.attr('data-product-id');
+        
+        if (!productId) {
+            // console.error('Không tìm thấy ID sản phẩm');
+            return;
+        }
+        
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        var isLoggedIn = checkUserLogin();
+        
+        if (!isLoggedIn) {
+            window.location.href = CONFIG_BASE + 'account/dang-nhap';
+            return;
+        }
+        
+        // Thu thập thông tin sản phẩm từ DOM
+        var productData = getProductDataFromDOM($this);
+        
+        // Toggle trạng thái wishlist (chỉ cho user đã đăng nhập)
+        toggleServerWishlist(productId, productData, $this);
+    });
+    
+    // Cập nhật UI khi trang được tải
+    updateWishlistUI();
+};
+
+// Khởi tạo wishlist cho guest users
+function initGuestWishlist() {
+    if (!localStorage.getItem('guestWishlist')) {
+        localStorage.setItem('guestWishlist', JSON.stringify([]));
+    }
+}
+
+// Lấy thông tin sản phẩm từ DOM
+function getProductDataFromDOM($element) {
+    var $productCard = $element.closest('.product-card, .box-product, .card-product');
+    var productData = {
+        name: $productCard.find('.product-name, .name-product').text().trim() || 'Sản phẩm',
+        image: $productCard.find('img').first().attr('src') || '',
+        price: $productCard.find('.price-new, .price-product').text().trim() || '',
+        url: $productCard.find('a').first().attr('href') || '#'
+    };
+    return productData;
+}
+
+// Toggle trạng thái wishlist
+function toggleWishlist(productId, productData, $element) {
+    // Kiểm tra user đã đăng nhập chưa
+    var isLoggedIn = checkUserLogin();
+    
+    if (isLoggedIn) {
+        // Xử lý cho user đã đăng nhập
+        toggleServerWishlist(productId, productData, $element);
+    } else {
+        // Xử lý cho guest user
+        toggleGuestWishlist(productId, productData, $element);
+    }
+}
+
+// Kiểm tra user có đăng nhập không
+function checkUserLogin() {
+    // Ưu tiên kiểm tra session từ server qua window.userLoggedIn
+    if (typeof window.userLoggedIn !== 'undefined') {
+        return window.userLoggedIn;
+    }
+    
+    // Fallback: Kiểm tra cookie login_member_id (được set khi "Nhớ mật khẩu")
+    return document.cookie.includes('login_member_id=') && 
+           !document.cookie.includes('login_member_id=;') &&
+           !document.cookie.includes('login_member_id=""');
+}
+
+// Xử lý wishlist cho user đã đăng nhập
+function toggleServerWishlist(productId, productData, $element) {
+    // Kiểm tra trạng thái hiện tại dựa trên icon và class
+    var isInWishlist = $element.hasClass('active') || $element.hasClass('in-wishlist') || $element.find('i').hasClass('fas');
+    var action = isInWishlist ? 'remove' : 'add';
+
+    
+    $.ajax({
+        url: 'api/wishlist.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            action: action,
+            product_id: productId,
+            product_data: JSON.stringify(productData)
+        },
+        beforeSend: function() {
+            $element.addClass('loading');
+        },
+        success: function(response) {
+            console.log('Wishlist response:', response); // Debug log
+            
+            if (response.success) {
+                updateWishlistButton($element, action === 'add');
+                updateWishlistCounter(response.count);
+                showWishlistNotification(action, productData.name);
+                
+                // Cập nhật local storage cho đồng bộ
+                syncLocalWishlist(response.wishlist || []);
+            } else {
+                showWishlistError(response.message || 'Có lỗi xảy ra');
+                
+                // Show debug info in console if available
+                if (response.debug) {
+                    console.error('Wishlist debug info:', response.debug);
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', {
+                status: status,
+                error: error,
+                response: xhr.responseText
+            });
+            
+            showWishlistError('Không thể kết nối đến server');
+        },
+        complete: function() {
+            $element.removeClass('loading');
+        }
+    });
+}
+
+// Xử lý wishlist cho guest user
+function toggleGuestWishlist(productId, productData, $element) {
+    var guestWishlist = JSON.parse(localStorage.getItem('guestWishlist') || '[]');
+    var existingIndex = guestWishlist.findIndex(item => item.id == productId);
+    
+    if (existingIndex !== -1) {
+        // Xóa khỏi wishlist
+        guestWishlist.splice(existingIndex, 1);
+        updateWishlistButton($element, false);
+        showWishlistNotification('remove', productData.name);
+    } else {
+        // Thêm vào wishlist
+        guestWishlist.push({
+            id: productId,
+            ...productData,
+            date_added: new Date().toISOString()
+        });
+        updateWishlistButton($element, true);
+        showWishlistNotification('add', productData.name);
+    }
+    
+    localStorage.setItem('guestWishlist', JSON.stringify(guestWishlist));
+    updateWishlistCounter(guestWishlist.length);
+}
+
+// Cập nhật giao diện button wishlist
+function updateWishlistButton($element, isActive) {
+    var $icon = $element.find('i');
+
+    
+    if (isActive) {
+        $element.addClass('active in-wishlist');
+        // Remove both old (fas) and new (fa-solid) classes for backward compatibility
+        $icon.removeClass('fa-regular fas fa-solid').addClass('fa-solid fa-heart');
+        $element.attr('title', 'Bỏ khỏi yêu thích');
+    } else {
+        $element.removeClass('active in-wishlist');
+        // Remove both old (fas) and new (fa-solid) classes for backward compatibility
+        $icon.removeClass('fas fa-solid').addClass('fa-regular fa-heart');
+        $element.attr('title', 'Thêm vào yêu thích');
+    }
+    
+}
+
+// Cập nhật counter wishlist
+function updateWishlistCounter(count) {
+    $('.wishlist-counter, .wishlist-count').text(count);
+    
+    // Tạo counter nếu chưa có
+    if (!$('.wishlist-counter').length && count > 0) {
+        $('.wishlist-header, .header-wishlist').append(
+            '<span class="wishlist-counter badge">' + count + '</span>'
+        );
+    }
+    
+    // Ẩn counter nếu = 0
+    if (count === 0) {
+        $('.wishlist-counter').hide();
+    } else {
+        $('.wishlist-counter').show();
+    }
+}
+
+// Hiển thị thông báo
+function showWishlistNotification(action, productName) {
+    var message = action === 'add' ? 
+        'Đã thêm "' + productName + '" vào danh sách yêu thích' :
+        'Đã xóa "' + productName + '" khỏi danh sách yêu thích';
+    
+    // Sử dụng thư viện notification có sẵn hoặc tạo popup đơn giản
+    if (typeof notifyDialog === 'function') {
+        notifyDialog(message);
+    } else {
+        // Fallback: tạo thông báo đơn giản
+        showSimpleNotification(message, action === 'add' ? 'success' : 'info');
+    }
+}
+
+// Hiển thị lỗi
+function showWishlistError(message) {
+    if (typeof notifyDialog === 'function') {
+        notifyDialog(message);
+    } else {
+        showSimpleNotification(message, 'error');
+    }
+}
+
+// Tạo thông báo đơn giản
+function showSimpleNotification(message, type) {
+    var $notification = $('<div class="wishlist-notification ' + type + '">' + message + '</div>');
+    
+    $notification.css({
+        position: 'fixed',
+        top: '20px',
+        right: '20px',
+        padding: '12px 20px',
+        borderRadius: '4px',
+        color: 'white',
+        fontSize: '14px',
+        zIndex: 9999,
+        animation: 'slideInRight 0.3s ease',
+        backgroundColor: type === 'success' ? '#28a745' : 
+                        type === 'error' ? '#dc3545' : '#17a2b8'
+    });
+    
+    $('body').append($notification);
+    
+    setTimeout(function() {
+        $notification.fadeOut(300, function() {
+            $(this).remove();
+        });
+    }, 3000);
+}
+
+// Đồng bộ wishlist local
+function syncLocalWishlist(serverWishlist) {
+    localStorage.setItem('userWishlist', JSON.stringify(serverWishlist));
+}
+
+// Cập nhật UI khi trang load
+function updateWishlistUI() {
+    var isLoggedIn = checkUserLogin();
+    
+    if (!isLoggedIn) {
+        // For guest users, use localStorage
+        var guestWishlist = JSON.parse(localStorage.getItem('guestWishlist') || '[]');
+        
+        $('.wishlist-add').each(function() {
+            var $this = $(this);
+            var productId = $this.attr('data-product-id');
+            var isInWishlist = guestWishlist.some(item => item.id == productId);
+            updateWishlistButton($this, isInWishlist);
+        });
+        
+        updateWishlistCounter(guestWishlist.length);
+    } else {
+        // For logged-in users, respect the PHP template's initial state
+        // Only sync localStorage with current DOM state, don't override it
+        var currentWishlist = [];
+        
+        $('.wishlist-add').each(function() {
+            var $this = $(this);
+            var productId = $this.attr('data-product-id');
+            
+            // Check if element already has active/in-wishlist classes from PHP
+            var isActive = $this.hasClass('active') || $this.hasClass('in-wishlist');
+            
+            if (isActive) {
+                currentWishlist.push({ id: productId });
+            }
+        });
+        
+        // Sync localStorage with current state
+        localStorage.setItem('userWishlist', JSON.stringify(currentWishlist));
+        updateWishlistCounter(currentWishlist.length);
+        
+        console.log('updateWishlistUI - respecting PHP state, synced', currentWishlist.length, 'items to localStorage');
+    }
+}
+
+// Global functions để sử dụng ở nơi khác
+window.addToWishlist = function(productId, productData) {
+    var $element = $('.wishlist-add[data-product-id="' + productId + '"]').first();
+    if ($element.length) {
+        toggleWishlist(productId, productData || getProductDataFromDOM($element), $element);
+    }
+};
+
+window.removeFromWishlist = function(productId) {
+    var isLoggedIn = checkUserLogin();
+    
+    if (isLoggedIn) {
+        $.ajax({
+            url: 'api/wishlist.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'remove',
+                product_id: productId
+            },
+            success: function(response) {
+                if (response.success) {
+                    updateWishlistCounter(response.count);
+                    $('.wishlist-add[data-product-id="' + productId + '"]').each(function() {
+                        updateWishlistButton($(this), false);
+                    });
+                }
+            }
+        });
+    } else {
+        var guestWishlist = JSON.parse(localStorage.getItem('guestWishlist') || '[]');
+        guestWishlist = guestWishlist.filter(item => item.id != productId);
+        localStorage.setItem('guestWishlist', JSON.stringify(guestWishlist));
+        updateWishlistCounter(guestWishlist.length);
+        $('.wishlist-add[data-product-id="' + productId + '"]').each(function() {
+            updateWishlistButton($(this), false);
+        });
+    }
+};
+
+window.isInWishlist = function(productId) {
+    var isLoggedIn = checkUserLogin();
+    var wishlist = [];
+    
+    if (isLoggedIn) {
+        wishlist = JSON.parse(localStorage.getItem('userWishlist') || '[]');
+    } else {
+        wishlist = JSON.parse(localStorage.getItem('guestWishlist') || '[]');
+    }
+    
+    return wishlist.some(item => item.id == productId);
+};
 BLUEWEB_FRAMEWORK.GoogleMap = function () {
     $(".map_items").click(function () {
         if ($(this).hasClass("active")) { } else {
@@ -1429,6 +1776,7 @@ $(document).ready(function () {
     BLUEWEB_FRAMEWORK.LoaderWrapper();
     BLUEWEB_FRAMEWORK.SlickPage();
     // BLUEWEB_FRAMEWORK.Swiper();
+    BLUEWEB_FRAMEWORK.Wishlist();
     BLUEWEB_FRAMEWORK.AosAnimation();
     BLUEWEB_FRAMEWORK.Lazys();
     BLUEWEB_FRAMEWORK.Tools();

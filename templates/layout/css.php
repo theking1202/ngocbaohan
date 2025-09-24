@@ -66,6 +66,8 @@ $css->set("css/style_product.css");
 
 $css->set("css/media.css");
 
+// $css->set("css/wishlist.css");
+
 // $css->set("swiper/index.css");
 
 

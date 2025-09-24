@@ -1,20 +1,25 @@
+@media (max-width: 1350px) {
+  .product-list{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 @media (max-width: 1024px) {
   .sidebar-custom {
     width: 350px;
-    
+
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 100;
     position: relative;
   }
-  
+
   .sidebar-inner {
     position: sticky;
     top: 20px;
     padding: 20px;
     height: 580px;
   }
-  
+
   /* .fixed-sidebar {
     position: fixed !important;
     top: 0;
@@ -29,8 +34,6 @@
     left: 5px;
   }
 
-  
-
   .sidebar-control-icon-container img {
     display: none;
   }
@@ -42,7 +45,7 @@
     right: 23px;
   }
 
-  .sidebar-control-section h4{
+  .sidebar-control-section h4 {
     font-size: 18px;
   }
 
@@ -98,7 +101,8 @@
     height: 200px;
   }
 
-  .info-gioithieu {}
+  .info-gioithieu {
+  }
 
   .xemthem-gioithieu {
     margin-top: 10px;
@@ -125,7 +129,7 @@
   }
 
   .breadCrumbs {
-    padding-top: 85px;
+    /* padding-top: 85px; */
   }
 
   /* .slideshow {
@@ -288,10 +292,7 @@
 
   .service-section {
     background-position: right 5px bottom -5px;
-
   }
-
-
 }
 
 @media (max-width: 991px) {
@@ -302,14 +303,14 @@
     z-index: 100;
     position: relative;
   }
-  
+
   .sidebar-inner {
     position: sticky;
     top: 20px;
     padding: 20px;
     height: 580px;
   }
-  
+
   .fixed-sidebar {
     position: fixed !important;
     top: 0;
@@ -364,7 +365,6 @@
     right: 85px;
     position: relative;
   }
-
 
   .othernews {
     position: initial;
@@ -432,7 +432,6 @@
   }
   .service-section {
     background-position: right 5px bottom -5px;
-
   }
 
   .section-logo {
@@ -451,7 +450,7 @@
     right: 8px;
   }
 
-  .sidebar-control-section h4{
+  .sidebar-control-section h4 {
     font-size: 20px;
   }
 
@@ -463,12 +462,36 @@
     top: 100px;
     font-size: 1.2rem;
   }
-
-  
-  
 }
 
 @media (max-width: 768px) {
+  /* Mobile Bottom Navigation Carousel - NBH */
+  .bottom-nav {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    white-space: nowrap;
+    cursor: grab;
+    user-select: none;
+  }
+  
+  .bottom-nav::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+  
+  .bottom-nav:active {
+    cursor: grabbing;
+  }
+  
+  .bottom-nav .nav-item {
+    display: inline-block;
+    white-space: normal;
+    vertical-align: top;
+    width: 20%; /* Show 5 items at a time */
+    min-width: 20%;
+  }
+
   .wrap-partner::after {
     display: none;
   }
@@ -633,7 +656,8 @@
     line-height: 20px;
   }
 
-  .eating-noibat-item:nth-child(1) {}
+  .eating-noibat-item:nth-child(1) {
+  }
 
   .eating-noibat-item:nth-child(2) {
     flex-direction: row-reverse;
@@ -717,7 +741,11 @@
     gap: 10px;
   }
 
-  .box-main-khonggian .owl-page .owl-stage-outer .owl-stage .owl-item.active.center {
+  .box-main-khonggian
+    .owl-page
+    .owl-stage-outer
+    .owl-stage
+    .owl-item.active.center {
     transform: scale(1);
   }
 
@@ -771,7 +799,8 @@
     padding: 5px 15px;
   }
 
-  .eating-noibat-item:nth-child(4) {}
+  .eating-noibat-item:nth-child(4) {
+  }
 
   .eating-about .icon {
     height: 25px;
@@ -1455,7 +1484,6 @@
   }
 
   .service-link {
-
   }
 
   .news-service {
@@ -1512,20 +1540,20 @@
 
   .sidebar-custom {
     width: 350px;
-    
+
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 100;
     position: relative;
   }
-  
+
   .sidebar-inner {
     position: sticky;
     top: 20px;
     padding: 20px;
     height: 580px;
   }
-  
+
   .fixed-sidebar {
     position: fixed !important;
     top: 0;
@@ -1576,10 +1604,27 @@
     top: -42px;
     right: 21px;
   }
+
+  .group-contact {
+    margin: 0px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .group-form {
+    flex-direction: column;
+  }
+  .box-contact-left {
+    width: 100%;
+  }
+  .box-contact-right {
+    width: 100%;
+  }
+  .gr_btniconsubmit {
+    margin: auto;
+  }
 }
 
 @media (max-width: 576px) {
-
   .wrap-gioithieu,
   .wrap-tieuchi,
   .wrap-dangky-tuyendung,
@@ -1778,7 +1823,8 @@
     padding: 20px 0px;
   }
 
-  .info-gioithieu {}
+  .info-gioithieu {
+  }
 
   .line-title .name-gioithieu {
     font-size: 40px;
@@ -2189,7 +2235,6 @@
   }
 
   .section-logo {
-
   }
 }
 
@@ -2288,7 +2333,7 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
-  
+
   .slideshow {
     top: -50px;
     height: 152px;
@@ -2305,7 +2350,7 @@
     gap: 10px;
     padding: 10px;
   }
-  
+
   .product-card {
     width: 100%;
     max-width: 100%;
@@ -2320,7 +2365,8 @@
     padding: 8px 4px;
     height: auto;
   }
-  .product-name, .product-price {
+  .product-name,
+  .product-price {
     font-size: 13px;
   }
 
@@ -2349,5 +2395,12 @@
   .sidebar-control-section {
     bottom: 183px;
     right: 22px;
+  }
+
+  .values-grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .section-header h2 {
+    white-space: normal;
   }
 }

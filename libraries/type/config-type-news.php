@@ -48,7 +48,7 @@ $config['news'][$nametype]['dropdown'] = true;
 
 $config['news'][$nametype]['list'] = true;
 
-$config['news'][$nametype]['cat'] = true;
+// $config['news'][$nametype]['cat'] = true;
 
 $config['news'][$nametype]['item'] = false;
 
@@ -106,15 +106,15 @@ $config['news'][$nametype]['seo_list'] = true;
 
 /* Dịch vụ (Cat) */
 
-$config['news'][$nametype]['title_main_cat'] = danhmuccap2;
+// $config['news'][$nametype]['title_main_cat'] = danhmuccap2;
 
-$config['news'][$nametype]['slug_cat'] = true;
+// $config['news'][$nametype]['slug_cat'] = true;
 
-$config['news'][$nametype]['check_cat'] = array("noibat" => noibat, "hienthi" => hienthi);
+// $config['news'][$nametype]['check_cat'] = array("noibat" => noibat, "hienthi" => hienthi);
 
-$config['news'][$nametype]['desc_cat'] = true;
+// $config['news'][$nametype]['desc_cat'] = true;
 
-$config['news'][$nametype]['seo_cat'] = true;
+// $config['news'][$nametype]['seo_cat'] = true;
 
 
 

@@ -1,5 +1,19 @@
-<div class="background-wrapper">
+<?php
+// Assume you have these variables available from your controller/database queries:
+// $sanphamListMenu - product categories
+// $sanphamList - products for each category
+// $dichvuList - services
+// $tintucList - news articles
+// $configBase - base URL
+$countWishlist = $d->rawQuery("SELECT COUNT(*) as total FROM #_wishlist where id_user = '".$_SESSION[$loginMember]['id']."'");
+?>
 
+<script>
+// Set user login status for wishlist functionality
+window.userLoggedIn = <?= isset($_SESSION['LoginMemberMSHD']) ? 'true' : 'false' ?>;
+</script>
+
+<div class="background-wrapper">
     <div class="wrapper-sidebar">
         <div class="sidebar-custom" id="sidebar-sticky">
             <button id="sidebar-toggle" class="hamburger-menu">
@@ -16,35 +30,35 @@
                     <div class="sidebar-control-button">
                         <div class="sidebar-control-icon text-center">
                             <div class="sidebar-control-icon-container">
-                                <a href="" class="text-center">
+                                <a href="cac-chi-nhanh" class="text-center">
                                     <img class="icon-container-img"
                                         src="<?= $configBase ?>assets/images/cac_cua_hang.png" alt="">
                                     <p class="text-white icon-container-title">Các chi nhánh</p>
                                 </a>
                             </div>
                             <div class="sidebar-control-icon-container">
-                                <a href="" class="text-center">
+                                <a href="quyen-loi-thanh-vien" class="text-center">
                                     <img class="icon-container-img" src="<?= $configBase ?>assets/images/member.png"
                                         alt="">
                                     <p class="text-white icon-container-title">Quyền lợi<br> thành viên</p>
                                 </a>
                             </div>
                             <div class="sidebar-control-icon-container">
-                                <a href="" class="text-center">
+                                <a href="chinh-sach-thu-doi" class="text-center">
                                     <img class="icon-container-img" src="<?= $configBase ?>assets/images/doi_tra.png"
                                         alt="">
                                     <p class="text-white icon-container-title">Chính sách<br> thu đổi</p>
                                 </a>
                             </div>
                             <div class="sidebar-control-icon-container">
-                                <a href="" class="text-center">
+                                <a href="chinh-sach-bao-hanh" class="text-center">
                                     <img class="icon-container-img" src="<?= $configBase ?>assets/images/bao_hanh.png"
                                         alt="">
                                     <p class="text-white icon-container-title">Chính sách<br> bảo hành</p>
                                 </a>
                             </div>
                             <div class="sidebar-control-icon-container">
-                                <a href="" class="text-center">
+                                <a href="javascript:void(0)" class="text-center" onclick="scrollToSection('xemtuvi')">
                                     <img class="icon-container-img" src="<?= $configBase ?>assets/images/phong_thuy.png"
                                         alt="">
                                     <p class="text-white icon-container-title">Coi phong<br> thủy</p>
@@ -56,627 +70,269 @@
             </div>
         </div>
 
-
         <div class="main-content">
             <div class="product-head d-flex">
                 <div class="product-head1">
                     <div class="index-search">
-                        <i class="index-search-icon fa-solid fa-magnifying-glass"></i>
-                        <input type="text" class="index-search-input" placeholder="Tìm kiếm">
+                        <p class="m-0" style="cursor: pointer;" onclick="onSearch('keyword');"><i
+                                class="index-search-icon fa-solid fa-magnifying-glass"></i></p>
+                        <input type="text" class="index-search-input" placeholder="Tìm kiếm" id="keyword"
+                            onkeypress="doEnter(event,'keyword');">
                         <i class="index-search-filter fa-solid fa-sliders"></i>
                     </div>
-
-                    <!-- Location Component -->
                     <div class="index-location">
                         <i class="fa-solid fa-location-dot index-location-icon"></i>
                         <span>Ninh Kiều, Cần Thơ</span>
                     </div>
                 </div>
-                <!-- Actions Component -->
                 <div class="index-actions">
-                    <i class="fa-solid fa-user index-user-icon"></i>
-                    <i class="fa-solid fa-cart-shopping index-cart-icon"></i>
+                    <?php if (isset($_SESSION[$loginMember])): ?>
+                    <div class="user-dropdown-container" style="position: relative; display: inline-block;">
+                        <a href="account/tai-khoan" class="text-green fw-bold user-login">Xin chào,
+                            <?= $_SESSION[$loginMember]['fullname']?></a>
+                        <div class="dropup-menu-nbh" style="
+                            position: absolute;
+                            bottom: 100%;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            background: white;
+                            border: 1px solid #e5e7eb;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                            padding: 8px 0;
+                            min-width: 180px;
+                            z-index: 1000;
+                            opacity: 0;
+                            visibility: hidden;
+                            transition: opacity 0.2s ease, visibility 0.2s ease;
+                            margin-bottom: 8px;
+                        ">
+                            <a href="account/tai-khoan" class="dropup-menu-nbh-item" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 8px 16px;
+                                color: #374151;
+                                text-decoration: none;
+                                transition: background-color 0.2s ease;
+                            " onmouseover="this.style.backgroundColor='#f3f4f6'"
+                                onmouseout="this.style.backgroundColor='transparent'">
+                                <i class="fas fa-user" style="margin-right: 8px; width: 16px; text-align: center;"></i>
+                                <span>Thông tin tài khoản</span>
+                            </a>
+                            <a href="account/dang-xuat" class="dropup-menu-nbh-item" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 8px 16px;
+                                color: #374151;
+                                text-decoration: none;
+                                transition: background-color 0.2s ease, color 0.2s ease;
+                            " onmouseover="this.style.backgroundColor='#fee2e2'; this.style.color='#dc2626'"
+                                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151'">
+                                <i class="fas fa-sign-out-alt"
+                                    style="margin-right: 8px; width: 16px; text-align: center;"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </div>
+                    </div>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const userDropdownContainer = document.querySelector('.user-dropdown-container');
+                        const dropupMenu = userDropdownContainer.querySelector('.dropup-menu-nbh');
 
+                        userDropdownContainer.addEventListener('mouseenter', function() {
+                            dropupMenu.style.opacity = '1';
+                            dropupMenu.style.visibility = 'visible';
+                        });
+
+                        userDropdownContainer.addEventListener('mouseleave', function() {
+                            dropupMenu.style.opacity = '0';
+                            dropupMenu.style.visibility = 'hidden';
+                        });
+                    });
+                    </script>
+                    <?php else: ?>
+                    <a href="account/dang-nhap"><i class="fa-solid fa-user index-user-icon"></i></a>
+                    <?php endif; ?>
+                    <a href="gio-hang" title="Giỏ hàng">
+                        <div class="cart-icon-wrapper">
+                            <i class="fas fa-shopping-cart index-cart-icon"></i>
+                            <span class="cart-count"
+                                id="cart-count"><?= (!empty($_SESSION['cart'])) ? count($_SESSION['cart']) : 0 ?></span>
+                        </div>
+                    </a>
+                    <a href="account/san-pham-yeu-thich" title="Sản phẩm yêu thích">
+                        <div class="cart-icon-wrapper">
+                            <i class="fa-regular fa-heart index-cart-icon"></i>
+                            <span class="cart-count"
+                                id="cart-count"><?= (!empty($countWishlist[0]['total'])) ? $countWishlist[0]['total'] : 0 ?></span>
+                        </div>
+                    </a>
                     <div class="index-hotline">
                         <span class="index-hotline-label">Hotline:</span>
                         <span class="index-hotline-number">0949 661 188</span>
                     </div>
                 </div>
             </div>
-            <div class="main-content-wrapper" style="margin-left: 0px !important;">
+
+            <div class="main-content-wrapper">
                 <div class="section-product">
                     <span class="section-title">SẢN PHẨM CỦA CHÚNG TÔI</span>
                     <div class="product-tabs">
-                        <span class="product-tab active" data-tab="new-products">SẢN PHẨM MỚI</span>
-                        <span class="product-tab" data-tab="best-sellers">BEST SELLER</span>
-                        <span class="product-tab" data-tab="design-products">SẢN PHẨM THIẾT KẾ</span>
+                        <?php
+                            if($sanphamListMenu):
+                                foreach($sanphamListMenu as $k => $v): 
+                        ?>
+                        <span class="product-tab text-uppercase <?= ($k == 0) ? 'active' : '' ?>"
+                            data-tab="<?= $v['slug' . $lang]?>"><?= $v['namevi']?></span>
+                        <?php
+                                endforeach;
+                            endif;
+                        ?>
                     </div>
 
-                    <!-- Tab Content: New Products -->
-                    <div class="tab-content active" id="new-products">
+                    <?php
+                    if($sanphamListMenu):
+                        foreach($sanphamListMenu as $k => $category):
+                            // Get products for this category - filter by id_list
+                            $categoryProducts = [];
+                            if(isset($sanphamList) && is_array($sanphamList)) {
+                                foreach($sanphamList as $product) {
+                                    // Check if product belongs to this category
+                                    if(is_string($product['id_list'])) {
+                                        // If id_list is comma-separated string like "1,2,3"
+                                        $productCategories = explode(',', $product['id_list']);
+                                        if(in_array($category['id'], array_map('trim', $productCategories))) {
+                                            $categoryProducts[] = $product;
+                                        }
+                                    } else {
+                                        // If id_list is single integer
+                                        if($product['id_list'] == $category['id']) {
+                                            $categoryProducts[] = $product;
+                                        }
+                                    }
+                                }
+                            }
+                            $chunkedProducts = array_chunk($categoryProducts, 6); // 6 products per slide
+    
+                    ?>
+                    <!-- Tab Content: <?= $category['namevi'] ?> -->
+                    <div class="tab-content <?= ($k == 0) ? 'active' : '' ?>" id="<?= $category['slug' . $lang]?>">
                         <div class="carousel-wrapper">
                             <div class="carousel-container">
-                                <button class="carousel-nav carousel-prev" onclick="prevSlide('new-products')">
+                                <?php if(count($chunkedProducts) > 1): ?>
+                                <button class="carousel-nav carousel-prev"
+                                    onclick="prevSlide('<?= $category['slug' . $lang]?>')">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
+                                <?php endif; ?>
 
-                                <div class="carousel-track">
-                                    <!-- Slide 1 -->
+                                <div class="carousel-track" data-category="<?= $category['slug' . $lang]?>">
+                                    <?php 
+                                    if($chunkedProducts):
+                                        foreach($chunkedProducts as $slideIndex => $slideProducts): 
+                                    ?>
+                                    <!-- Slide <?= $slideIndex + 1 ?> -->
                                     <div class="carousel-slide">
                                         <div class="product-list">
+                                            <?php foreach($slideProducts as $product): ?>
+
                                             <div class="product-card">
                                                 <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
+                                                    <a href="<?= $product['slug' . $lang] ?>">
+                                                        <div class="product-image default-image">
+                                                            <img src="<?= THUMBS ?>/285x285x2/<?= UPLOAD_PRODUCT_L . $product['photo'] ?>"
+                                                                alt="<?= $product['namevi'] ?>"
+                                                                class="product-image default-image">
+                                                        </div>
+                                                        <?php if(!empty($product['icon'])): ?>
+                                                        <div class="product-image hover-image">
+                                                            <img src="<?= THUMBS ?>/285x285x2/<?= UPLOAD_PRODUCT_L . $product['icon'] ?>"
+                                                                alt="<?= $product['namevi'] ?>"
+                                                                class="product-image hover-image">
+                                                        </div>
+                                                    </a>
+                                                    <?php endif; ?>
+                                                    <?php 
+                                                    // Check if product is in user's wishlist
+                                                    $isInWishlist = false;
+                                                    if (isset($_SESSION['LoginMemberMSHD']['id']) && isset($d)) {
+                                                        $userId = $_SESSION['LoginMemberMSHD']['id'];
+                                                        $wishlistCheck = $d->rawQueryOne("SELECT id FROM #_wishlist WHERE id_user = ? AND id_product = ?", array($userId, $product['id']));
+                                                        $isInWishlist = !empty($wishlistCheck);
+                                                    }
+                                                    ?>
+                                                    <div class="heart-icon wishlist-add <?= $isInWishlist ? 'active in-wishlist' : '' ?>"
+                                                        data-product-id="<?= $product['id'] ?>"
+                                                        title="<?= $isInWishlist ? 'Bỏ khỏi yêu thích' : 'Thêm vào yêu thích' ?>">
+                                                        <i
+                                                            class="<?= $isInWishlist ? 'fa-solid' : 'fa-regular' ?> fa-heart"></i>
                                                     </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
+                                                    <a class="eye-icon" href="<?= $product['slug' . $lang] ?>">
                                                         <i class="fa-solid fa-eye"></i>
-                                                    </div>
+                                                    </a>
                                                 </div>
                                                 <div class="product-info">
-                                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
+                                                    <h3 class="product-name"><?= $product['namevi'] ?></h3>
+                                                    <div class="product-price">
+                                                        <?php if($product['sale_price'] > 0): ?>
+                                                        <span
+                                                            class="sale-price"><?= number_format($product['sale_price']) ?>
+                                                            VNĐ</span>
+                                                        <span
+                                                            class="regular-price"><?= number_format($product['regular_price']) ?>
+                                                            VNĐ</span>
+                                                        <?php elseif($product['regular_price'] > 0): ?>
+                                                        <?= number_format($product['regular_price']) ?> VNĐ
+                                                        <?php else: ?>
+                                                        Liên hệ
+                                                        <?php endif; ?>
+                                                    </div>
                                                     <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan1-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Vàng 24K</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Vàng Cao Cấp</h3>
-                                                    <div class="product-price">60.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Hoa tai vàng</h3>
-                                                    <div class="product-price">15.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Hoa tai vàng 24K</h3>
-                                                    <div class="product-price">14.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Định Đá</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
+                                                        <button class="btn btn-primary shopnow addcart"
+                                                            data-id="<?= $product['id'] ?>" data-action="buynow">Mua
+                                                            Ngay</button>
+                                                        <button class="btn btn-secondary shopnow addcart"
+                                                            data-id="<?= $product['id'] ?>" data-action="addnow">Thêm
+                                                            Vào Giỏ Hàng</button>
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
-                                    <!-- Slide 2 -->
+                                    <?php 
+                                        endforeach;
+                                    else:
+                                    ?>
                                     <div class="carousel-slide">
                                         <div class="product-list">
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan1-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Vàng 24K</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Vàng Cao Cấp</h3>
-                                                    <div class="product-price">60.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Hoa tai vàng</h3>
-                                                    <div class="product-price">15.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Hoa tai vàng 24K</h3>
-                                                    <div class="product-price">14.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-2.jpg"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon">
-                                                        <i class="fa-solid fa-heart"></i>
-                                                    </div>
-                                                    <div class="eye-icon">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Nhẫn Định Đá</h3>
-                                                    <div class="product-price">10.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                            <p class="no-products">Không có sản phẩm trong danh mục này</p>
                                         </div>
                                     </div>
-                                </div>
-                                <button class="carousel-nav carousel-next" onclick="nextSlide('new-products')">
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                            </div>
-                            <!-- Additional Navigation Buttons -->
-
-                        </div>
-                    </div>
-
-                    <!-- Tab Content: Best Sellers -->
-                    <div class="tab-content" id="best-sellers">
-                        <div class="carousel-wrapper">
-                            <div class="carousel-container">
-                                <button class="carousel-nav carousel-prev" onclick="prevSlide('best-sellers')">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </button>
-
-                                <div class="carousel-track-bs">
-                                    <!-- Best Seller Slide 1 -->
-                                    <div class="carousel-slide">
-                                        <div class="product-list">
-                                            <!-- Best Seller Products - Premium Items -->
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon"><i class="fa-solid fa-heart"></i></div>
-                                                    <div class="eye-icon"><i class="fa-solid fa-eye"></i></div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Bộ Trang Sức Cưới</h3>
-                                                    <div class="product-price">50.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon"><i class="fa-solid fa-heart"></i></div>
-                                                    <div class="eye-icon"><i class="fa-solid fa-eye"></i></div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Dây Chuyền Kim Cương</h3>
-                                                    <div class="product-price">75.000.000 VNĐ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                                            Hàng</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php endif; ?>
                                 </div>
 
-                                <button class="carousel-nav carousel-next" onclick="nextSlide('best-sellers')">
+                                <?php if(count($chunkedProducts) > 1): ?>
+                                <button class="carousel-nav carousel-next"
+                                    onclick="nextSlide('<?= $category['slug' . $lang]?>')">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+                                <?php endif; ?>
                             </div>
-
                         </div>
                     </div>
-
-                    <!-- Tab Content: Design Products -->
-                    <div class="tab-content" id="design-products">
-                        <div class="carousel-wrapper">
-                            <div class="carousel-container">
-                                <button class="carousel-nav carousel-prev" onclick="prevSlide('design-products')">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </button>
-
-                                <div class="carousel-track-dp">
-                                    <!-- Design Products Slide 1 -->
-                                    <div class="carousel-slide">
-                                        <div class="product-list">
-                                            <!-- Design Products - Custom Design Pieces -->
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon"><i class="fa-solid fa-heart"></i></div>
-                                                    <div class="eye-icon"><i class="fa-solid fa-eye"></i></div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Thiết Kế Riêng - Nhẫn Độc Đáo</h3>
-                                                    <div class="product-price">Giá: Liên hệ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Liên Hệ</button>
-                                                        <button class="btn btn-secondary shopnow">Xem Chi Tiết</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-card">
-                                                <div class="image-container">
-                                                    <div class="product-image default-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1.jpg"
-                                                            alt="Product Default" class="product-image default-image">
-                                                    </div>
-                                                    <div class="product-image hover-image">
-                                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png"
-                                                            alt="Product Hover" class="product-image hover-image">
-                                                    </div>
-                                                    <div class="heart-icon"><i class="fa-solid fa-heart"></i></div>
-                                                    <div class="eye-icon"><i class="fa-solid fa-eye"></i></div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3 class="product-name">Thiết Kế Theo Yêu Cầu</h3>
-                                                    <div class="product-price">Giá: Liên hệ</div>
-                                                    <div class="action-buttons">
-                                                        <button class="btn btn-primary shopnow">Liên Hệ</button>
-                                                        <button class="btn btn-secondary shopnow">Xem Chi Tiết</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button class="carousel-nav carousel-next" onclick="nextSlide('design-products')">
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
+                    <?php 
+                        endforeach;
+                    endif;
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-// Tab switching functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const tabs = document.querySelectorAll('.product-tab');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const targetTab = this.getAttribute('data-tab');
-
-            // Remove active class from all tabs and contents
-            tabs.forEach(t => t.classList.remove('active'));
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                content.style.display = 'none';
-            });
-
-            // Add active class to clicked tab and corresponding content
-            this.classList.add('active');
-            const targetContent = document.getElementById(targetTab);
-            if (targetContent) {
-                targetContent.classList.add('active');
-                targetContent.style.display = 'block';
-            }
-        });
-    });
-});
-
-// Carousel functionality for each tab
-const carouselStates = {
-    'new-products': {
-        currentSlide: 0,
-        totalSlides: 2
-    },
-    'best-sellers': {
-        currentSlide: 0,
-        totalSlides: 1
-    },
-    'design-products': {
-        currentSlide: 0,
-        totalSlides: 1
-    }
-};
-
-function nextSlide(tabId) {
-    const state = carouselStates[tabId];
-    if (state.currentSlide < state.totalSlides - 1) {
-        state.currentSlide++;
-        updateCarousel(tabId);
-    }
-}
-
-function prevSlide(tabId) {
-    const state = carouselStates[tabId];
-    if (state.currentSlide > 0) {
-        state.currentSlide--;
-        updateCarousel(tabId);
-    }
-}
-
-function updateCarousel(tabId) {
-    const state = carouselStates[tabId];
-    let trackSelector;
-
-    switch (tabId) {
-        case 'new-products':
-            trackSelector = '.carousel-track';
-            break;
-        case 'best-sellers':
-            trackSelector = '.carousel-track-bs';
-            break;
-        case 'design-products':
-            trackSelector = '.carousel-track-dp';
-            break;
-    }
-
-    const track = document.querySelector(`#${tabId} ${trackSelector}`);
-    if (track) {
-        const translateX = -state.currentSlide * 50; // 50% per slide
-        track.style.transform = `translateX(${translateX}%)`;
-    }
-}
-</script>
-
-
+<!-- Services Section -->
 <div class="container-service">
     <div class="service-section">
         <div class="service-section-logo">
@@ -723,57 +379,113 @@ function updateCarousel(tabId) {
 
 <div class="news-service">
     <div class="row">
-        <div class="col-md-6 news-col-1">
-            <div class="row">
+        <?php if(isset($tintucList) && count($tintucList) > 0): ?>
+            <?php 
+                // Get first 3 featured articles
+                $featuredNews = array_slice($tintucList, 0, 3);
+                $firstTwo = array_slice($featuredNews, 0, 2);
+                $lastOne = isset($featuredNews[2]) ? $featuredNews[2] : null;
+            ?>
+            <div class="col-md-6 news-col-1">
+                <div class="row">
+                    <?php foreach($firstTwo as $k => $article): ?>
+                    <div class="col-12 <?= $k == 0 ? 'mb-3' : '' ?> position-relative">
+                        <a href="<?= $article[$sluglang] ?>" class="text-decoration-none">
+                            <div class="news-service-items">
+                                <img src="<?= THUMBS ?>/285x200x1/<?= UPLOAD_NEWS_L . $article['photo'] ?>" 
+                                     alt="<?= $article['name' . $lang] ?>" 
+                                     class="news-service-items-img"
+                                     onerror="this.src='<?= $configBase ?>/assets/images/noimage.png';">
+                                <div class="news-service-items-section">
+                                    <div class="items-section-text-1">
+                                        <?= $article['name' . $lang] ?>
+                                    </div>
+                                    <div class="items-section-text-2">
+                                        <span style="text-decoration: underline;"><?= $func->limitWords($article['desc' . $lang], 30) ?>...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <?php if($lastOne): ?>
+            <div class="col-md-6">
                 <div class="col-12 mb-3 position-relative">
-                    <div class="news-service-items">
-                        <img src="<?= $configBase ?>/assets/images/vang2.png" alt="" class="news-service-items-img">
-                        <div class="news-service-items-section">
-                            <div class="items-section-text-1" style="">
-                                Dự đoán tử vi<br>
-                                Canh thân<br>
-                                1980
+                    <a href="<?= $lastOne[$sluglang] ?>" class="text-decoration-none">
+                        <div class="news-service-items news-service-items-lg">
+                            <img src="<?= THUMBS ?>/400x300x1/<?= UPLOAD_NEWS_L . $lastOne['photo'] ?>" 
+                                 alt="<?= $lastOne['name' . $lang] ?>" 
+                                 class="news-service-items-img"
+                                 onerror="this.src='<?= $configBase ?>/assets/images/noimage.png';">
+                            <div class="news-service-items-section news-service-items-section-lg">
+                                <div class="items-section-text-1">
+                                    <?= $lastOne['name' . $lang] ?>
+                                </div>
+                                <div class="items-section-text-2">
+                                    <span style="text-decoration: underline;"><?= $func->limitWords($lastOne['desc' . $lang], 100) ?>...</span>
+                                </div>
                             </div>
-                            <div class="items-section-text-2">
-                                <span style="text-decoration: underline;">Tổng quan canh<br>thân 1980...</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <?php endif; ?>
+        <?php else: ?>
+           
+            <!-- <div class="col-md-6 news-col-1">
+                <div class="row">
+                    <div class="col-12 mb-3 position-relative">
+                        <div class="news-service-items">
+                            <img src="<?= $configBase ?>/assets/images/vang2.png" alt="" class="news-service-items-img">
+                            <div class="news-service-items-section">
+                                <div class="items-section-text-1">
+                                    Dự đoán tử vi<br>
+                                    Canh thân<br>
+                                    1980
+                                </div>
+                                <div class="items-section-text-2">
+                                    <span style="text-decoration: underline;">Tổng quan canh<br>thân 1980...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 position-relative">
+                        <div class="news-service-items">
+                            <img src="<?= $configBase ?>/assets/images/vang1.jpg" alt="" class="news-service-items-img">
+                            <div class="news-service-items-section">
+                                <div class="items-section-text-1">
+                                    Những điều cần<br>
+                                    biết về tuổi Mão<br>
+                                    trong năm 2025
+                                </div>
+                                <div class="items-section-text-2">
+                                    <span style="text-decoration: underline;">Trong năm 2025,<br>tuổi Mão sẽ....</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 position-relative">
-                    <div class="news-service-items">
-                        <img src="<?= $configBase ?>/assets/images/vang1.jpg" alt="" class="news-service-items-img">
-                        <div class="news-service-items-section">
+            </div>
+            <div class="col-md-6">
+                <div class="col-12 mb-3 position-relative">
+                    <div class="news-service-items news-service-items-lg">
+                        <img src="<?= $configBase ?>/assets/images/vang3.webp" alt="" class="news-service-items-img">
+                        <div class="news-service-items-section news-service-items-section-lg">
                             <div class="items-section-text-1">
-                                Những điều cần<br>
-                                biết về tuổi Mão<br>
-                                trong năm 2025
+                                Trong năm 2025 <br>
+                                các con giáp ăn <br>
+                                nên làm ra
                             </div>
                             <div class="items-section-text-2">
-                                <span style="text-decoration: underline;">Trong năm 2025,<br>tuổi Mão sẽ....</span>
+                                <span style="text-decoration: underline;">Năm 2025, sẽ có<br>nhiều thay đổi...</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="col-12 mb-3 position-relative">
-                <div class="news-service-items news-service-items-lg">
-                    <img src="<?= $configBase ?>/assets/images/vang3.webp" alt="" class="news-service-items-img">
-                    <div class="news-service-items-section news-service-items-section-lg">
-                        <div class="items-section-text-1">
-                            Trong năm 2025 <br>
-                            các con giáp ăn <br>
-                            nên làm ra
-                        </div>
-                        <div class="items-section-text-2">
-                            <span style="text-decoration: underline;">Năm 2025, sẽ có<br>nhiều thay đổi...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </div> -->
+        <?php endif; ?>
     </div>
 </div>
 
@@ -784,392 +496,237 @@ function updateCarousel(tabId) {
             <img src="<?= $configBase ?>thumbs/100x100x1/upload/photo/thiet-ke-chua-co-ten-2-2232.png" alt="Logo"
                 class="service-section-logo-img">
         </div>
+
         <!-- Tiêu đề -->
         <div class="service-head-title text-uppercase">Sản phẩm phong thủy</div>
-        <div class="product-tabs">
-            <span class="product-tab active">Mệnh kim</span>
-            <span class="product-tab">Mệnh mộc</span>
-            <span class="product-tab">Mệnh thủy</span>
-            <span class="product-tab">Mệnh hỏa</span>
-            <span class="product-tab">Mệnh thổ</span>
-        </div>
-        <!-- Feng Shui Product Carousel -->
-        <div class="carousel-wrapper" style="position: relative; overflow: hidden;">
-            <div class="carousel-container-2" style="overflow: hidden; position: relative;">
-                <div class="carousel-track-2" style="display: flex; transition: transform 0.3s ease; width: 200%;">
-                    <!-- Slide 1 -->
-                    <div class="carousel-slide-2"
-                        style="width: 50%; flex-shrink: 0; padding: 0 10px; box-sizing: border-box;">
-                        <div class="product-list2">
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/sp1.jpg" alt="Product Default"
-                                            class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png" alt="Product Hover"
-                                            class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
-                                    <div class="product-price">10.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/nhan1.jpg" alt="Product Default"
-                                            class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/nhan1-2.jpg" alt="Product Hover"
-                                            class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Nhẫn Vàng 24K</h3>
-                                    <div class="product-price">10.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-1.jpg"
-                                            alt="Product Default" class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-2.jpg" alt="Product Hover"
-                                            class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Nhẫn Vàng Cao Cấp</h3>
-                                    <div class="product-price">60.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-1.jpg"
-                                            alt="Product Default" class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-2.jpg"
-                                            alt="Product Hover" class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Hoa tai vàng</h3>
-                                    <div class="product-price">15.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-1.jpg"
-                                            alt="Product Default" class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-2.jpg"
-                                            alt="Product Hover" class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Hoa tai vàng 24K</h3>
-                                    <div class="product-price">14.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-1.jpg"
-                                            alt="Product Default" class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-2.jpg"
-                                            alt="Product Hover" class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Nhẫn Định Đá</h3>
-                                    <div class="product-price">10.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/sp1.jpg" alt="Product Default"
-                                            class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png" alt="Product Hover"
-                                            class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
-                                    <div class="product-price">10.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="carousel-slide-2"
-                        style="width: 50%; flex-shrink: 0; padding: 0 10px; box-sizing: border-box;">
-                        <div class="product-list2">
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/sp1.jpg" alt="Product Default"
-                                            class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/sp1-deo.png" alt="Product Hover"
-                                            class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Dây Mặt Vàng 24K</h3>
-                                    <div class="product-price">10.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/nhan1.jpg" alt="Product Default"
-                                            class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/nhan1-2.jpg" alt="Product Hover"
-                                            class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Nhẫn Vàng 24K</h3>
-                                    <div class="product-price">10.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-1.jpg"
-                                            alt="Product Default" class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/nhan2-2.jpg" alt="Product Hover"
-                                            class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Nhẫn Vàng Cao Cấp</h3>
-                                    <div class="product-price">60.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-1.jpg"
-                                            alt="Product Default" class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/hoatai1-2.jpg"
-                                            alt="Product Hover" class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Hoa tai vàng</h3>
-                                    <div class="product-price">15.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-1.jpg"
-                                            alt="Product Default" class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/hoatai2-2.jpg"
-                                            alt="Product Hover" class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Hoa tai vàng 24K</h3>
-                                    <div class="product-price">14.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="image-container">
-                                    <div class="product-image default-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-1.jpg"
-                                            alt="Product Default" class="product-image default-image">
-                                    </div>
-                                    <div class="product-image hover-image">
-                                        <img src="<?= $configBase ?>assets/images/demo/daychuyen-2.jpg"
-                                            alt="Product Hover" class="product-image hover-image">
-                                    </div>
-                                    <div class="heart-icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </div>
-                                    <div class="eye-icon">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Nhẫn Định Đá</h3>
-                                    <div class="product-price">10.000.000 VNĐ</div>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-primary shopnow">Mua Ngay</button>
-                                        <button class="btn btn-secondary shopnow">Thêm Vào Giỏ
-                                            Hàng</button>
-                                    </div>
-                                </div>
-                            </div>
 
+        <!-- Feng Shui Product Tabs -->
+        <div class="product-tabs">
+            <?php
+                if($sanphamCatMenu):
+                    foreach($sanphamCatMenu as $k => $v): 
+            ?>
+            <span class="product-tab text-uppercase <?= ($k == 0) ? 'active' : '' ?>"
+                data-tab="fengshui-<?= $v['slug' . $lang]?>"><?= $v['namevi']?></span>
+            <?php
+                    endforeach;
+                endif;
+            ?>
+        </div>
+
+        <?php
+        if($sanphamCatMenu):
+            foreach($sanphamCatMenu as $k => $category):
+                // Get feng shui products for this category - filter by id_list
+                $categoryProducts = [];
+                if(isset($sanphamCatList) && is_array($sanphamCatList)) {
+                    foreach($sanphamCatList as $product) {
+                        // Check if product belongs to this category
+                        if(is_string($product['id_brand'])) {
+                            // If id_list is comma-separated string like "1,2,3"
+                            $productCategories = explode(',', $product['id_brand']);
+                            if(in_array($category['id'], array_map('trim', $productCategories))) {
+                                $categoryProducts[] = $product;
+                            }
+                        } else {
+                            // If id_list is single integer
+                            if($product['id_brand'] == $category['id']) {
+                                $categoryProducts[] = $product;
+                            }
+                        }
+                    }
+                }
+                $chunkedProducts = array_chunk($categoryProducts, 6); // 6 products per slide
+
+        ?>
+        <!-- Feng Shui Tab Content: <?= $category['namevi'] ?> -->
+        <div class="tab-content <?= ($k == 0) ? 'active' : '' ?>" id="fengshui-<?= $category['slug' . $lang]?>"
+            style="<?= ($k != 0) ? 'display: none;' : '' ?>">
+            <div class="carousel-wrapper" style="position: relative; overflow: hidden;">
+                <div class="carousel-container-2" style="overflow: hidden; position: relative;">
+                    <?php if(count($chunkedProducts) > 1): ?>
+                    <button class="carousel-nav carousel-prev"
+                        onclick="prevSlideFengShui('fengshui-<?= $category['slug' . $lang]?>')"
+                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(16, 68, 40, 0.8); color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer;">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <?php endif; ?>
+
+                    <div class="carousel-track-2 fengshui-track"
+                        data-category="fengshui-<?= $category['slug' . $lang]?>"
+                        style="display: flex; transition: transform 0.3s ease; width: <?= count($chunkedProducts) * 100 ?>%;">
+                        <?php 
+                        if($chunkedProducts):
+                            foreach($chunkedProducts as $slideIndex => $slideProducts): 
+                        ?>
+                        <!-- Slide <?= $slideIndex + 1 ?> -->
+                        <div class="carousel-slide-2"
+                            style="width: <?= 100 / count($chunkedProducts) ?>%; flex-shrink: 0; padding: 0 10px; box-sizing: border-box;">
+                            <div class="product-list2">
+                                <?php foreach($slideProducts as $product): ?>
+                                <div class="product-card">
+                                    <div class="image-container">
+                                        <a href="<?= $product['slug' . $lang] ?>">
+                                            <div class="product-image default-image">
+                                                <img src="<?= THUMBS ?>/285x285x2/<?= UPLOAD_PRODUCT_L . $product['photo'] ?>"
+                                                    alt="<?= $product['namevi'] ?>" class="product-image default-image">
+                                            </div>
+                                            <?php if(!empty($product['icon'])): ?>
+                                            <div class="product-image hover-image">
+                                                <img src="<?= THUMBS ?>/285x285x2/<?= UPLOAD_PRODUCT_L . $product['icon'] ?>"
+                                                    alt="<?= $product['namevi'] ?>" class="product-image hover-image">
+                                            </div>
+                                        </a>
+                                        <?php endif; ?>
+                                        <?php 
+                                        // Check if product is in user's wishlist for feng shui products
+                                        $isInWishlist = false;
+                                        if (isset($_SESSION['LoginMemberMSHD']['id']) && isset($d)) {
+                                            $userId = $_SESSION['LoginMemberMSHD']['id'];
+                                            $wishlistCheck = $d->rawQueryOne("SELECT id FROM #_wishlist WHERE id_user = ? AND id_product = ?", array($userId, $product['id']));
+                                            $isInWishlist = !empty($wishlistCheck);
+                                        }
+                                        ?>
+                                        <div class="heart-icon wishlist-add <?= $isInWishlist ? 'active in-wishlist' : '' ?>"
+                                            data-product-id="<?= $product['id'] ?>"
+                                            title="<?= $isInWishlist ? 'Bỏ khỏi yêu thích' : 'Thêm vào yêu thích' ?>">
+                                            <i class="<?= $isInWishlist ? 'fa-solid' : 'fa-regular' ?> fa-heart"></i>
+                                        </div>
+                                        <a class="eye-icon" href="<?= $product['slug' . $lang] ?>">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <h3 class="product-name"><?= $product['namevi'] ?></h3>
+                                        <div class="product-price">
+                                            <?php if($product['sale_price'] > 0): ?>
+                                            <span class="sale-price"><?= number_format($product['sale_price']) ?>
+                                                VNĐ</span>
+                                            <span class="regular-price"><?= number_format($product['regular_price']) ?>
+                                                VNĐ</span>
+                                            <?php elseif($product['regular_price'] > 0): ?>
+                                            <?= number_format($product['regular_price']) ?> VNĐ
+                                            <?php else: ?>
+                                            Liên hệ
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-primary shopnow addcart"
+                                                data-id="<?= $product['id'] ?>" data-action="buynow">Mua Ngay</button>
+                                            <button class="btn btn-secondary shopnow addcart"
+                                                data-id="<?= $product['id'] ?>" data-action="addnow">Thêm Vào Giỏ
+                                                Hàng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
+                        <?php 
+                            endforeach;
+                        else:
+                        ?>
+                        <div class="carousel-slide-2"
+                            style="width: 100%; flex-shrink: 0; padding: 0 10px; box-sizing: border-box;">
+                            <div class="product-list2">
+                                <p class="no-products"></p>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                     </div>
+
+                    <?php if(count($chunkedProducts) > 1): ?>
+                    <button class="carousel-nav carousel-next"
+                        onclick="nextSlideFengShui('fengshui-<?= $category['slug' . $lang]?>')"
+                        style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(16, 68, 40, 0.8); color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer;">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
-
-        <!-- JavaScript for second carousel -->
+        <?php 
+            endforeach;
+        endif;
+        ?>
     </div>
 </div>
 
-<div class="container-nguhanh">
+<script>
+// Enhanced feng shui product tab switching and carousel
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all feng shui tabs and tab contents
+    const fengshuiTabs = document.querySelectorAll('.product-tabs .product-tab[data-tab^="fengshui-"]');
+    const fengshuiTabContents = document.querySelectorAll('.tab-content[id^="fengshui-"]');
+
+    // Initialize feng shui carousel states
+    const fengshuiCarouselStates = {};
+
+    // Setup carousel states for each feng shui category
+    fengshuiTabs.forEach(tab => {
+        const targetTab = tab.getAttribute('data-tab');
+        const targetContent = document.getElementById(targetTab);
+        if (targetContent) {
+            const slides = targetContent.querySelectorAll('.carousel-slide-2');
+            fengshuiCarouselStates[targetTab] = {
+                currentSlide: 0,
+                totalSlides: slides.length
+            };
+        }
+    });
+
+    // Feng shui tab switching functionality
+    fengshuiTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+
+            // Remove active class from all feng shui tabs and contents
+            fengshuiTabs.forEach(t => t.classList.remove('active'));
+            fengshuiTabContents.forEach(content => {
+                content.classList.remove('active');
+                content.style.display = 'none';
+            });
+
+            // Add active class to clicked tab and corresponding content
+            this.classList.add('active');
+            const targetContent = document.getElementById(targetTab);
+            if (targetContent) {
+                targetContent.classList.add('active');
+                targetContent.style.display = 'block';
+            }
+        });
+    });
+
+    // Feng shui carousel functionality
+    window.nextSlideFengShui = function(tabId) {
+        const state = fengshuiCarouselStates[tabId];
+        if (state && state.currentSlide < state.totalSlides - 1) {
+            state.currentSlide++;
+            updateFengshuiCarousel(tabId);
+        }
+    }
+
+    window.prevSlideFengShui = function(tabId) {
+        const state = fengshuiCarouselStates[tabId];
+        if (state && state.currentSlide > 0) {
+            state.currentSlide--;
+            updateFengshuiCarousel(tabId);
+        }
+    }
+
+    function updateFengshuiCarousel(tabId) {
+        const state = fengshuiCarouselStates[tabId];
+        const track = document.querySelector(`#${tabId} .fengshui-track`);
+        if (track && state) {
+            const slideWidth = 100 / state.totalSlides;
+            const translateX = -state.currentSlide * slideWidth;
+            track.style.transform = `translateX(${translateX}%)`;
+        }
+    }
+});
+</script>
+
+<div class="container-nguhanh" id="xemtuvi">
     <div class="nguhanh-section">
         <div class="service-section-logo1">
             <!-- Logo chính -->
@@ -1224,147 +781,79 @@ function updateCarousel(tabId) {
 </div>
 
 <script>
-const track = document.querySelector('.carousel-track');
-const slides = document.querySelectorAll('.carousel-slide');
-const prevButton = document.querySelector('.carousel-prev');
-const nextButton = document.querySelector('.carousel-next');
+// Enhanced tab switching with database categories
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.product-tab');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-let currentIndex = 0;
-const totalSlides = 2; // Fixed for 2-slide layout
+    // Initialize carousel states dynamically
+    const carouselStates = {};
 
-// Initialize
-updateCarousel();
-
-function updateCarousel() {
-    // Move carousel - for 2 slides with 50% width each
-    const translateX = -(currentIndex * 50);
-    track.style.transform = `translateX(${translateX}%)`;
-
-    // Update button states
-    const isFirstSlide = currentIndex === 0;
-    const isLastSlide = currentIndex === totalSlides - 1;
-
-    // Update prev button
-    prevButton.style.opacity = isFirstSlide ? '0.5' : '1';
-    prevButton.style.pointerEvents = isFirstSlide ? 'none' : 'auto';
-
-    // Update next button
-    nextButton.style.opacity = isLastSlide ? '0.5' : '1';
-    nextButton.style.pointerEvents = isLastSlide ? 'none' : 'auto';
-}
-
-function goToSlide(index) {
-    if (index >= 0 && index < totalSlides) {
-        currentIndex = index;
-        updateCarousel();
-    }
-}
-
-// Event listeners
-prevButton.addEventListener('click', () => {
-    goToSlide(currentIndex - 1);
-});
-
-nextButton.addEventListener('click', () => {
-    goToSlide(currentIndex + 1);
-});
-
-// Tab switching functionality
-const tabs = document.querySelectorAll('.product-tab');
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-    });
-});
-
-// Heart and eye icon functionality
-document.querySelectorAll('.heart-icon').forEach(icon => {
-    icon.addEventListener('click', (e) => {
-        e.preventDefault();
-        icon.classList.toggle('liked');
-        const heartIcon = icon.querySelector('i');
-        if (icon.classList.contains('liked')) {
-            heartIcon.style.color = '#e74c3c';
-            heartIcon.classList.remove('fa-regular');
-            heartIcon.classList.add('fa-solid');
-        } else {
-            heartIcon.style.color = '';
+    // Setup carousel states for each category
+    tabs.forEach(tab => {
+        const targetTab = tab.getAttribute('data-tab');
+        const targetContent = document.getElementById(targetTab);
+        if (targetContent) {
+            const slides = targetContent.querySelectorAll('.carousel-slide');
+            carouselStates[targetTab] = {
+                currentSlide: 0,
+                totalSlides: slides.length
+            };
         }
     });
-});
 
-document.querySelectorAll('.eye-icon').forEach(icon => {
-    icon.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('Quick view functionality coming soon!');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+
+            // Remove active class from all tabs and contents
+            tabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                content.style.display = 'none';
+            });
+
+            // Add active class to clicked tab and corresponding content
+            this.classList.add('active');
+            const targetContent = document.getElementById(targetTab);
+            if (targetContent) {
+                targetContent.classList.add('active');
+                targetContent.style.display = 'block';
+            }
+        });
     });
-});
 
-// Auto-play functionality
-let autoPlayInterval;
-
-function startAutoPlay() {
-    autoPlayInterval = setInterval(() => {
-        const nextIndex = currentIndex === totalSlides - 1 ? 0 : currentIndex + 1;
-        goToSlide(nextIndex);
-    }, 5000);
-}
-
-function stopAutoPlay() {
-    clearInterval(autoPlayInterval);
-}
-
-// Start auto-play
-startAutoPlay();
-
-// Pause auto-play on hover
-const carouselWrapper = document.querySelector('.carousel-wrapper');
-carouselWrapper.addEventListener('mouseenter', stopAutoPlay);
-carouselWrapper.addEventListener('mouseleave', startAutoPlay);
-
-// Touch/swipe support for mobile
-let startX = null;
-let currentX = null;
-let isDragging = false;
-
-carouselWrapper.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-    stopAutoPlay();
-});
-
-carouselWrapper.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    currentX = e.touches[0].clientX;
-});
-
-carouselWrapper.addEventListener('touchend', (e) => {
-    if (!isDragging) return;
-
-    const diffX = startX - currentX;
-    const threshold = 50;
-
-    if (Math.abs(diffX) > threshold) {
-        if (diffX > 0 && currentIndex < totalSlides - 1) {
-            goToSlide(currentIndex + 1);
-        } else if (diffX < 0 && currentIndex > 0) {
-            goToSlide(currentIndex - 1);
+    // Enhanced carousel functionality
+    window.nextSlide = function(tabId) {
+        const state = carouselStates[tabId];
+        if (state && state.currentSlide < state.totalSlides - 1) {
+            state.currentSlide++;
+            updateCarousel(tabId);
         }
     }
 
-    isDragging = false;
-    startX = null;
-    currentX = null;
-    startAutoPlay();
-});
+    window.prevSlide = function(tabId) {
+        const state = carouselStates[tabId];
+        if (state && state.currentSlide > 0) {
+            state.currentSlide--;
+            updateCarousel(tabId);
+        }
+    }
 
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        goToSlide(currentIndex - 1);
-    } else if (e.key === 'ArrowRight' && currentIndex < totalSlides - 1) {
-        goToSlide(currentIndex + 1);
+    function updateCarousel(tabId) {
+        const state = carouselStates[tabId];
+        const track = document.querySelector(`#${tabId} .carousel-track`);
+        if (track && state) {
+            const slideWidth = 100 / state.totalSlides;
+            const translateX = -state.currentSlide * slideWidth;
+            track.style.transform = `translateX(${translateX}%)`;
+        }
     }
 });
+
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({
+        behavior: "smooth" // cuộn mượt
+    });
+}
 </script>

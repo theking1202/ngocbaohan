@@ -37,6 +37,45 @@ $chungnhanListMenu = $d->rawQuery("select name$lang, slugvi, slugen, id from #_n
 
 $sanphamListMenu = $d->rawQuery("select id, name$lang,desc$lang, slugvi, slugen  from #_product_list where type = ? and find_in_set('noibat',status) and find_in_set('hienthi',status)", array('san-pham'));
 
+$sanphamCatMenu = $d->rawQuery("select id, name$lang,desc$lang, slugvi, slugen  from #_product_brand where type = ? and find_in_set('hienthi',status) order by numb,id desc", array('san-pham'));
+
+$sanphamCatList = $d->rawQuery("select id, name$lang,desc$lang, photo, icon, slugvi, slugen, id_list, id_brand, regular_price, sale_price  from #_product where type = ? and find_in_set('noibat',status) and find_in_set('hienthi',status)", array('san-pham'));
+
+$sanphamList = $d->rawQuery("select id, name$lang,desc$lang, photo, icon, slugvi, slugen, id_list, id_brand, regular_price, sale_price  from #_product where type = ? and find_in_set('noibat',status) and find_in_set('hienthi',status)", array('san-pham'));
+
+$tintucList = $d->rawQuery("select name$lang, slugvi, desc$lang, content$lang, view, photo, slugen, id from #_news where type = ? and find_in_set('noibat',status) and find_in_set('hienthi',status) order by numb,id desc", array('tin-tuc'));
+// Group products by brand for tabs
+$sanphamByBrand = array();
+if (!empty($sanphamList)) {
+    foreach ($sanphamList as $product) {
+        $brandId = $product['id_brand'];
+        if (!isset($sanphamByBrand[$brandId])) {
+            $sanphamByBrand[$brandId] = array();
+        }
+        $sanphamByBrand[$brandId][] = $product;
+    }
+}
+
+// Group products by category (id_list) for better product organization
+$sanphamByCategory = array();
+if (!empty($sanphamList)) {
+    foreach ($sanphamList as $product) {
+        // Handle multiple categories (comma-separated id_list)
+        if (!empty($product['id_list'])) {
+            $categoryIds = explode(',', $product['id_list']);
+            foreach ($categoryIds as $categoryId) {
+                $categoryId = trim($categoryId);
+                if (!empty($categoryId)) {
+                    if (!isset($sanphamByCategory[$categoryId])) {
+                        $sanphamByCategory[$categoryId] = array();
+                    }
+                    $sanphamByCategory[$categoryId][] = $product;
+                }
+            }
+        }
+    }
+}
+
 $banner_gioithieu = $cache->get("select photo from #_photo where type = ? and act = ? limit 0,1", array('banner', 'photo_static'), 'fetch', 7200);
 // 
 

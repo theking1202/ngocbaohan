@@ -50,6 +50,26 @@ $config['static'][$nametype]['desc_cke'] = true;
 
 
 
+$nametype = "tuyen-dung";
+
+$config['static'][$nametype]['title_main'] = "Tuyển dụng";
+
+$config['static'][$nametype]['check'] = array("hienthi" => hienthi);
+
+$config['static'][$nametype]['name'] = true;
+
+// $config['static'][$nametype]['desc'] = true;
+
+$config['static'][$nametype]['desc_cke'] = true;
+
+$config['static'][$nametype]['content'] = true;
+
+$config['static'][$nametype]['content_cke'] = true;
+
+$config['static'][$nametype]['images'] = false;
+
+
+
 
 
 
@@ -118,3 +138,59 @@ $config['static'][$nametype]['width'] = 1366;
 $config['static'][$nametype]['height'] = 535;
 $config['static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif';
 $config['static'][$nametype]['file_type'] = '.mp4';
+
+$nametype = "cac-chi-nhanh";
+
+$config['static'][$nametype]['title_main'] = "Các chi nhánh";
+
+$config['static'][$nametype]['check'] = array("hienthi" => hienthi);
+
+$config['static'][$nametype]['name'] = true;
+
+// $config['static'][$nametype]['desc'] = true;
+
+$config['static'][$nametype]['desc_cke'] = true;
+
+$config['static'][$nametype]['content'] = true;
+
+$config['static'][$nametype]['content_cke'] = true;
+
+$config['static'][$nametype]['images'] = false;
+
+
+$nametype = "quyen-loi-thanh-vien";
+
+$config['static'][$nametype]['title_main'] = "Quyền lợi thành viên";
+
+$config['static'][$nametype]['check'] = array("hienthi" => hienthi);
+
+$config['static'][$nametype]['name'] = true;
+
+// $config['static'][$nametype]['desc'] = true;
+
+$config['static'][$nametype]['desc_cke'] = true;
+
+$config['static'][$nametype]['content'] = true;
+
+$config['static'][$nametype]['content_cke'] = true;
+
+$config['static'][$nametype]['images'] = false;
+
+
+$nametype = "chinh-sach-thu-doi";
+
+$config['static'][$nametype]['title_main'] = "Chính sách thu đổi";
+
+$config['static'][$nametype]['check'] = array("hienthi" => hienthi);
+
+$config['static'][$nametype]['name'] = true;
+
+// $config['static'][$nametype]['desc'] = true;
+
+$config['static'][$nametype]['desc_cke'] = true;
+
+$config['static'][$nametype]['content'] = true;
+
+$config['static'][$nametype]['content_cke'] = true;
+
+$config['static'][$nametype]['images'] = false;
