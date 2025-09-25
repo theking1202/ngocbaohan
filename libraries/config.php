@@ -16,7 +16,7 @@ $config = array(
 
         'server-name' => $_SERVER["SERVER_NAME"],
 
-       'url' => '/ngocbaohan/',
+       'url' => '/code/ngocbaohan/',
 
         'type' => 'mysql',
 
@@ -26,7 +26,7 @@ $config = array(
 
         'password' => '',
 
-        'dbname' => 'mitacorp_ngocbaohan',
+        'dbname' => 'ngocbaohan',
 
         'port' => 3306,
 

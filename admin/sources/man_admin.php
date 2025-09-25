@@ -57,7 +57,7 @@ function viewMans()
     if ($user_id != 1) { // Nếu không phải admin
         $where .= " and ps.store_id = $user_id ";
     } elseif ($store > 0) {
-        $where .= " and ps.store_id = $user_id ";
+        $where .= " and ps.store_id = $store ";
     }
 
     if ($keyword != '') {

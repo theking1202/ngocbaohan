@@ -10,19 +10,19 @@ $keyword = (isset($keyword)) ? htmlspecialchars($keyword) : '';
 <section class="content">
     <div class="card-footer text-sm sticky-top">
         <a class="btn btn-sm bg-gradient-primary text-white" href="<?=$linkAdd?>" title="Thêm mới"><i class="fas fa-plus mr-2"></i>Thêm mới</a>
-        <a class="btn btn-sm bg-gradient-danger text-white" id="delete-all" data-url="<?=$linkDelete?>" title="Xóa tất cả"><i class="far fa-trash-alt mr-2"></i>Xóa tất cả</a>
+        <a class="btn btn-sm bg-gradient-danger text-white" id="delete-all" data-url="<?=$linkDelete?><?= $strUrl ?>" title="Xóa tất cả"><i class="far fa-trash-alt mr-2"></i>Xóa tất cả</a>
 
         <div class="form-inline form-search d-inline-block align-middle ml-3">
-            <select class="custom-select custom-select-sm mr-2" id="store">
+            <select class="custom-select custom-select-sm mr-2" id="store" onchange="location.href='index.php?com=man_admin&act=man&store='+this.value+'<?= (!empty($keyword)) ? '&keyword='.urlencode($keyword) : '' ?>'">
                 <option value="0">-- Tất cả cửa hàng --</option>
                 <?php if(!empty($stores)) foreach($stores as $st){ ?>
-                    <option value="<?=$st['id']?>" <?=($store==$st['id'])?'selected':''?>><?=$st['namevi']?></option>
+                    <option value="<?=$st['id']?>" <?=($store==$st['id'])?'selected':''?>><?=$st['fullname']?></option>
                 <?php } ?>
             </select>
             <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar text-sm" type="search" id="keyword" placeholder="Tìm tên SP / SKU" aria-label="Search" value="<?=$keyword?>" onkeypress="doEnter(event)">
+                <input class="form-control form-control-navbar text-sm" type="search" id="keyword" placeholder="Tìm tên SP / SKU" aria-label="Search" value="<?=$keyword?>" onkeypress="doEnter(event,'keyword','<?=$linkMan?><?= ($store > 0) ? '&store='.$store : '' ?>')">
                 <div class="input-group-append bg-primary rounded-right">
-                    <button class="btn btn-navbar text-white" type="button" onclick="onSearch()">
+                    <button class="btn btn-navbar text-white" type="button" onclick="onSearch('keyword','<?=$linkMan?><?= ($store > 0) ? '&store='.$store : '' ?>')">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -41,11 +41,11 @@ $keyword = (isset($keyword)) ? htmlspecialchars($keyword) : '';
                         <th class="align-middle text-center" width="5%"><input type="checkbox" id="selectall"></th>
                         <th class="align-middle">Cửa hàng</th>
                         <th class="align-middle">Sản phẩm</th>
-                        <th class="align-middle">SKU</th>
+                        <!-- <th class="align-middle">SKU</th> -->
                         <th class="align-middle text-right">Giá vốn</th>
                         <th class="align-middle text-right">Giá bán</th>
                         <th class="align-middle text-center">Số lượng</th>
-                        <th class="align-middle text-center">Trạng thái</th>
+                        <!-- <th class="align-middle text-center">Trạng thái</th> -->
                         <th class="align-middle text-center">Thao tác</th>
                     </tr>
                 </thead>
@@ -57,11 +57,11 @@ $keyword = (isset($keyword)) ? htmlspecialchars($keyword) : '';
                             <td class="align-middle text-center"><input type="checkbox" name="select" value="<?=$v['id']?>"></td>
                             <td class="align-middle"><?=$v['store_name']?></td>
                             <td class="align-middle"><?=$v['product_name']?></td>
-                            <td class="align-middle"><?=$v['sku']?></td>
+                            <!-- <td class="align-middle"><?=$v['sku']?></td> -->
                             <td class="align-middle text-right"><?=number_format((float)$v['cost'],0,',','.')?></td>
                             <td class="align-middle text-right font-weight-bold"><?=number_format((float)$v['price'],0,',','.')?></td>
                             <td class="align-middle text-center"><?=$v['quantity']?></td>
-                            <td class="align-middle text-center"><span class="badge badge-secondary"><?=$v['status']?></span></td>
+                            <!-- <td class="align-middle text-center"><span class="badge badge-secondary"><?=$v['status']?></span></td> -->
                             <td class="align-middle text-center">
                                 <a class="btn btn-sm bg-gradient-primary text-white mr-1" href="<?=$linkEdit?>&id=<?=$v['id']?>" title="Sửa"><i class="far fa-edit"></i></a>
                                 <a class="btn btn-sm bg-gradient-danger text-white" href="<?=$linkDelete?>&id=<?=$v['id']?>" title="Xóa" onclick="return confirm('Xoá bản ghi này?')"><i class="far fa-trash-alt"></i></a>
@@ -76,23 +76,3 @@ $keyword = (isset($keyword)) ? htmlspecialchars($keyword) : '';
         </div>
     </div>
 </section>
-<script>
-function onSearch(){
-  const s = document.getElementById('store').value;
-  const kw = document.getElementById('keyword').value;
-  const qs = new URLSearchParams({com:'man_admin',act:'man'});
-  if(s && s!='0') qs.append('store', s);
-  if(kw) qs.append('keyword', kw);
-  location.href = 'index.php?' + qs.toString();
-}
-function doEnter(e){ if(e.keyCode==13) onSearch(); }
-
-document.getElementById('selectall')?.addEventListener('change', e=>{
-  document.querySelectorAll('input[name=select]').forEach(cb=>cb.checked=e.target.checked);
-});
-document.getElementById('delete-all')?.addEventListener('click', e=>{
-  const ids = Array.from(document.querySelectorAll('input[name=select]:checked')).map(i=>i.value).join(',');
-  if(!ids){ alert('Chưa chọn bản ghi'); return; }
-  if(confirm('Xoá các bản ghi đã chọn?')){ location.href = e.target.dataset.url + '&listid=' + ids; }
-});
-</script>
